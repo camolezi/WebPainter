@@ -49,6 +49,26 @@ function setCanvasCallBacks(){
     canvas.addEventListener("mouseleave",function(e){
         currentTool.onMouseRelease(e);
     });
+
+    //----------------------for touch screen ------------------------------------------
+
+    canvas.addEventListener("ontouchstart",function(e){
+        currentTool.onMouseClick(e);
+    });
+
+    canvas.addEventListener("ontouchend",function(e){
+        currentTool.onMouseRelease(e);
+    });
+
+    canvas.addEventListener("ontouchmove", function(e){
+        let mouseEvent = {
+            clientX: e.clientX -  canvas.getBoundingClientRect().left,
+            clientY: e.clientY - canvas.getBoundingClientRect().top
+        }
+        currentTool.onMouseMove(mouseEvent);
+    });
+
+    
 }
 
 

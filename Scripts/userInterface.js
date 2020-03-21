@@ -4,7 +4,6 @@ resizeCanvas();
 window.addEventListener("resize",resizeCanvas);
 
 function resizeCanvas() {
-    let size = 0.9;
-    canvas.height = window.innerHeight * size
-    canvas.width = window.innerWidth * size;
+    canvas.height = window.innerHeight * 0.85
+    canvas.width = window.innerWidth * 0.97 ;
 }
