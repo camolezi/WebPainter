@@ -52,6 +52,7 @@ function setCanvasCallBacks(){
 
     //----------------------for touch screen ------------------------------------------
 
+    //Does not work for now
     canvas.addEventListener("ontouchstart",function(e){
         currentTool.onMouseClick(e);
     });
