@@ -19,12 +19,15 @@ export function initializeContext(drawCanva){
     }else{
         //Learn how to handle errors
     }
-
 }
 
 export function updateTool(){
     currentTool = toolManager.getCurrentTool();
     currentTool.initializeTool(renderContext);
+}
+
+export function updateToolColor(newColor){
+    currentTool.onColorChange(newColor);
 }
 
 function setCanvasCallBacks(){

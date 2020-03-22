@@ -16,6 +16,15 @@ let mousePos = {
 //Constructor 
 export function initializeTool(ctx){
     drawCtx = ctx;
+
+    //Draw style
+    drawCtx.lineWidth = 7;
+    drawCtx.lineCap = "round";
+    drawCtx.lineJoin = "round";
+}
+
+export function onColorChange(newColor){
+    drawCtx.strokeStyle = newColor;
 }
 
 //Call Back public API (all tools will have the same API)
@@ -33,7 +42,6 @@ export function onMouseMove(event){
     mousePos.changePos(event.clientX,event.clientY);
 
     if(drawing){
-        drawCtx.strokeStyle = "red";
         drawCtx.stroke();
     }
 }

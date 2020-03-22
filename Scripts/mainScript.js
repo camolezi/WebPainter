@@ -9,15 +9,25 @@ const canvas = document.getElementById("MainCanvas");
 toolManager.initializeMenager();
 drawContext.initializeContext(canvas);
 
-
+//buttons
 const pencilButton = document.getElementById("b_toolPencil");
 const inkButton = document.getElementById("b_toolInk");
-
 
 pencilButton.onclick = function(){ changeTool(ToolType.pencil);}
 inkButton.onclick = function(){ changeTool(ToolType.ink);}
 
 
+//Color picker
+const colorPicker = document.getElementById("i_colorPicker");
+colorPicker.value = "black"; //dafault color
+colorPicker.addEventListener("change",function(event){
+    drawContext.updateToolColor(event.target.value); 
+});
+
+
+
+
+//aux functions
 function changeTool(type){
     toolManager.changeTool(type);
     drawContext.updateTool();

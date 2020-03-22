@@ -7,15 +7,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <style>
+
+            .labels{
+                color: white;
+            }
             body{
-                background-color: rgb(30,30,50);
+                background-color: black
             }
             canvas{
                 display: block;
                 background-color: rgba(0,0, 0,0);
             }
             h1{
-                color: seashell;
+                color: white;
                 text-align: center;
             }
         </style>
@@ -25,9 +29,15 @@
     <body>
 
         <h1> Web Painter </h1>
+
         
-        <button type="button" id="b_toolPencil">t1</button>
-        <button type="button" id="b_toolInk">t2</button>
+        <div>
+            <label for="head" class="labels">Color:  </label>
+            <input type="color" id="i_colorPicker" value="black">
+        </div>
+        
+        <button type="button" id="b_toolPencil">Pencil</button>
+        <button type="button" id="b_toolInk">Ink</button>
         <button type="button" id="b_tool3">t3</button>
         <button type="button" id="b_tool4">t4</button>
         <button type="button" id="b_tool5">t5</button>
