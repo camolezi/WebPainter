@@ -55,15 +55,15 @@ function setCanvasCallBacks(){
     //----------------------for touch screen ------------------------------------------
 
     //Does not work for now
-    canvas.addEventListener("ontouchstart",function(e){
+    canvas.addEventListener("touchstart",function(e){
         currentTool.onMouseClick(e);
     });
 
-    canvas.addEventListener("ontouchend",function(e){
+    canvas.addEventListener("touchend",function(e){
         currentTool.onMouseRelease(e);
     });
 
-    canvas.addEventListener("ontouchmove", function(e){
+    canvas.addEventListener("touchmove", function(e){
         let mouseEvent = {
             clientX: e.clientX -  canvas.getBoundingClientRect().left,
             clientY: e.clientY - canvas.getBoundingClientRect().top

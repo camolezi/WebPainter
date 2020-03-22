@@ -26,16 +26,8 @@ colorPicker.addEventListener("change",function(event){
 
 
 
-
 //aux functions
 function changeTool(type){
     toolManager.changeTool(type);
     drawContext.updateTool();
 }
-
-
-//Test change of tools
-//window.addEventListener("keydown",function(){
-  //  toolManager.changeTool(ToolType.ink);
-//    drawContext.updateTool();
-//});
