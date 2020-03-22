@@ -56,17 +56,20 @@ function setCanvasCallBacks(){
 
     //Does not work for now
     canvas.addEventListener("touchstart",function(e){
+        e.preventDefault();
         currentTool.onMouseClick(e);
     });
 
     canvas.addEventListener("touchend",function(e){
+        e.preventDefault();
         currentTool.onMouseRelease(e);
     });
 
     canvas.addEventListener("touchmove", function(e){
+        e.preventDefault();
         let mouseEvent = {
-            clientX: e.clientX -  canvas.getBoundingClientRect().left,
-            clientY: e.clientY - canvas.getBoundingClientRect().top
+            clientX: e.changedTouches[0].clientX -  canvas.getBoundingClientRect().left,
+            clientY: e.changedTouches[0].clientY - canvas.getBoundingClientRect().top
         }
         currentTool.onMouseMove(mouseEvent);
     });
