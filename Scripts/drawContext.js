@@ -54,7 +54,9 @@ function setCanvasCallBacks(){
 
     //----------------------for touch screen ------------------------------------------
 
-    //Does not work for now
+    //Theres a bug here, fix latter
+    //The line is not ending. Its a continues line, even if you are not touching
+
     canvas.addEventListener("touchstart",function(e){
         e.preventDefault();
         currentTool.onMouseClick(e);

@@ -1,58 +1,31 @@
-
-////--------------Just a test Tool fow now---------------------------------
-
-let drawCtx = null;
-let drawing = false;
-
-let mousePos = {
-    x : null,
-    y : null,
-    changePos : function(newX,newY){
-        this.x = newX;
-        this.y = newY;
-    }
-};
+import * as drawTool from "./drawingToolBase.js";
 
 //Constructor 
-export function initializeTool(ctx){
-    drawCtx = ctx;
-
-    //Draw style
+export function initializeTool(drawCtx){
+    //style
     drawCtx.lineWidth = 7;
     drawCtx.lineCap = "round";
     drawCtx.lineJoin = "round";
+
+    //Initiae base tool
+    drawTool.initializeTool(drawCtx);
+   
 }
 
 export function onColorChange(newColor){
-    drawCtx.strokeStyle = newColor;
+    drawTool.onColorChange(newColor);
 }
 
-//Call Back public API (all tools will have the same API)
 export function onMouseMove(event){
-
-    if(mousePos.x === null || mousePos.y === null){
-        mousePos.changePos(event.clientX,event.clientY);
-        return;
-    }
-
-    drawCtx.beginPath();
-    drawCtx.moveTo(event.clientX,event.clientY);
-    drawCtx.lineTo(mousePos.x,mousePos.y);
-
-    mousePos.changePos(event.clientX,event.clientY);
-
-    if(drawing){
-        drawCtx.stroke();
-    }
+    drawTool.onMouseMove(event);
 }
-
 
 export function onMouseClick(){
-    drawing = true;
+    drawTool.onMouseClick();
 }
 
 export function onMouseRelease(){
-    drawing = false;
+    drawTool.onMouseRelease();
 }
 
 
