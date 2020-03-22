@@ -15,7 +15,6 @@ export function initializeContext(drawCanva){
     
     if(renderContext !== null){
         setCanvasCallBacks();
-
         updateTool();
     }else{
         //Learn how to handle errors

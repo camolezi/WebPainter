@@ -17,7 +17,6 @@ export function initializeMenager(){
 }
 
 export function changeTool(type){
-    
     if(toolMap[type]){
         currentTool = toolMap[type];
     }else{
