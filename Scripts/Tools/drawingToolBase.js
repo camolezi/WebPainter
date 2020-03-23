@@ -19,6 +19,8 @@ let mousePos = {
 //Constructor 
 export function initializeTool(ctx){
     drawCtx = ctx;
+
+    
 }
 
 export function onColorChange(newColor){
@@ -52,6 +54,8 @@ export function onMouseClick(event){
     drawCtx.beginPath();
     drawCtx.arc(event.clientX,event.clientY, drawCtx.lineWidth/2, 0, 2*Math.PI, true);
     drawCtx.fill();
+
+    mousePos.changePos(event.clientX,event.clientY);
 }
 
 export function onMouseRelease(){

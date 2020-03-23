@@ -13,10 +13,15 @@ drawContext.initializeContext(canvas);
 const pencilButton = document.getElementById("b_toolPencil");
 const inkButton = document.getElementById("b_toolInk");
 const eraserButton = document.getElementById("b_toolEraser");
+const resetButton = document.getElementById("b_reset");
+
 
 pencilButton.onclick = function(){ changeTool(ToolType.pencil);}
 inkButton.onclick = function(){ changeTool(ToolType.ink);}
 eraserButton.onclick = function(){ changeTool(ToolType.eraser);}
+
+resetButton.onclick = function(){ drawContext.clearCanvas();}
+
 
 
 

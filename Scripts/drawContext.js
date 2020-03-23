@@ -30,6 +30,10 @@ export function updateToolColor(newColor){
     currentTool.onColorChange(newColor);
 }
 
+export function clearCanvas(){
+    renderContext.clearRect(0, 0, canvas.width, canvas.height);
+}
+
 function setCanvasCallBacks(){
     //Events listenes
     canvas.addEventListener("mousedown",function(e){
