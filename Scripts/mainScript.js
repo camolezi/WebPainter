@@ -12,9 +12,12 @@ drawContext.initializeContext(canvas);
 //buttons
 const pencilButton = document.getElementById("b_toolPencil");
 const inkButton = document.getElementById("b_toolInk");
+const eraserButton = document.getElementById("b_toolEraser");
 
 pencilButton.onclick = function(){ changeTool(ToolType.pencil);}
 inkButton.onclick = function(){ changeTool(ToolType.ink);}
+eraserButton.onclick = function(){ changeTool(ToolType.eraser);}
+
 
 
 //Color picker
@@ -30,4 +33,5 @@ colorPicker.addEventListener("change",function(event){
 function changeTool(type){
     toolManager.changeTool(type);
     drawContext.updateTool();
+    drawContext.updateToolColor(colorPicker.value);
 }

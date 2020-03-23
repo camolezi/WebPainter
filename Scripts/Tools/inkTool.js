@@ -20,8 +20,8 @@ export function onMouseMove(event){
     drawTool.onMouseMove(event);
 }
 
-export function onMouseClick(){
-    drawTool.onMouseClick();
+export function onMouseClick(event){
+    drawTool.onMouseClick(event);
 }
 
 export function onMouseRelease(){

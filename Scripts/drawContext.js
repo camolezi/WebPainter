@@ -33,7 +33,11 @@ export function updateToolColor(newColor){
 function setCanvasCallBacks(){
     //Events listenes
     canvas.addEventListener("mousedown",function(e){
-        currentTool.onMouseClick(e);
+        let mouseEvent = {
+            clientX: e.clientX -  canvas.getBoundingClientRect().left,
+            clientY: e.clientY - canvas.getBoundingClientRect().top
+        }
+        currentTool.onMouseClick(mouseEvent);
     });
 
     canvas.addEventListener("mouseup",function(e){

@@ -23,6 +23,7 @@ export function initializeTool(ctx){
 
 export function onColorChange(newColor){
     drawCtx.strokeStyle = newColor;
+    drawCtx.fillStyle = newColor;
 }
 
 //Call Back public API (all tools will have the same API)
@@ -45,8 +46,12 @@ export function onMouseMove(event){
 }
 
 
-export function onMouseClick(){
+export function onMouseClick(event){
     drawing = true;
+
+    drawCtx.beginPath();
+    drawCtx.arc(event.clientX,event.clientY, drawCtx.lineWidth/2, 0, 2*Math.PI, true);
+    drawCtx.fill();
 }
 
 export function onMouseRelease(){

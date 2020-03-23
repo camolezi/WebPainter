@@ -1,18 +1,19 @@
 import * as drawTool from "./drawingToolBase.js";
 
-//Constructor 
 export function initializeTool(drawCtx){
-    //set draw style
-    drawCtx.lineWidth = 1;
-    drawCtx.lineCap = "butt";
-    drawCtx.lineJoin = "miter";
+    //style
+    drawCtx.lineWidth = 15;
+    drawCtx.lineCap = "round";
+    drawCtx.lineJoin = "round";
+    drawCtx.strokeStyle = drawCtx.canvas.style.backgroundColor;
+    drawCtx.fillStyle = drawCtx.canvas.style.backgroundColor;
 
+    //Initiae base tool
     drawTool.initializeTool(drawCtx);
 }
 
-
 export function onColorChange(newColor){
-    drawTool.onColorChange(newColor);
+    
 }
 
 export function onMouseMove(event){
@@ -26,3 +27,6 @@ export function onMouseClick(event){
 export function onMouseRelease(){
     drawTool.onMouseRelease();
 }
+
+
+
