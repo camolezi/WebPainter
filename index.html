@@ -10,6 +10,10 @@
 
             .labels{
                 color: #fbf9ff;
+                display: inline-block;
+            }
+            .noToolButtons{
+                display: inline-block;
             }
             body{
                 background-color:#04080f
@@ -24,11 +28,13 @@
             }
 
             .toolButton{
+                margin-top: 10px;
+                margin-bottom: 10px;
                 background-repeat: no-repeat;
                 height: 50px;
                 width: 50px;
                 cursor:pointer;
-                border: none;
+              
             }
 
             #b_toolPencil{
@@ -47,21 +53,24 @@
     </head>
     <body>
 
-        <h1> Web Painter </h1>
+        <!-- ><h1> Web Painter </h1> --> 
 
         
-        <div>
+        <div >
             <label for="head" class="labels">Color:  </label>
             <input type="color" id="i_colorPicker" value="black">
-            <button type="button" id="b_reset">Reset</button>
+            <button type="button" id="b_reset" class="noToolButtons">Reset</button>
 
         </div>
         
-        <button type="button" class="toolButton" id="b_toolPencil"></button>
-        <button type="button" class="toolButton" id="b_toolInk"></button>
-        <button type="button" class="toolButton" id="b_toolEraser">Eraser</button>
-        <button type="button" class="toolButton" id="b_tool4">t4</button>
-        <button type="button" class="toolButton" id="b_tool5">t5</button>
+        <div>
+            <button type="button" class="toolButton" id="b_toolPencil"></button>
+            <button type="button" class="toolButton" id="b_toolInk"></button>
+            <button type="button" class="toolButton" id="b_toolEraser"></button>
+            <button type="button" class="toolButton" id="b_tool4"></button>
+            <button type="button" class="toolButton" id="b_tool5"></button>
+        </div>
+     
 
         <canvas id="MainCanvas"> This application is not support by your current browser</canvas>
     </body>
