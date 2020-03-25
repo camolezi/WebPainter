@@ -23,16 +23,24 @@
                 text-align: center;
             }
 
-            #b_toolPencil{
-
-                background-image: url("Images/pencil.png");
+            .toolButton{
                 background-repeat: no-repeat;
                 height: 50px;
                 width: 50px;
                 cursor:pointer;
                 border: none;
-               
             }
+
+            #b_toolPencil{
+                background-image: url("Images/pencil.png");
+            }
+            #b_toolInk{
+                background-image: url("Images/ink.png");
+            }
+            #b_toolEraser{
+                background-image: url("Images/eraser.png");
+            }
+
         </style>
 
         <script type="module" src="Scripts/mainScript.js"></script>        
@@ -49,11 +57,11 @@
 
         </div>
         
-        <button type="button" id="b_toolPencil"></button>
-        <button type="button" id="b_toolInk">Ink</button>
-        <button type="button" id="b_toolEraser">Eraser</button>
-        <button type="button" id="b_tool4">t4</button>
-        <button type="button" id="b_tool5">t5</button>
+        <button type="button" class="toolButton" id="b_toolPencil"></button>
+        <button type="button" class="toolButton" id="b_toolInk"></button>
+        <button type="button" class="toolButton" id="b_toolEraser">Eraser</button>
+        <button type="button" class="toolButton" id="b_tool4">t4</button>
+        <button type="button" class="toolButton" id="b_tool5">t5</button>
 
         <canvas id="MainCanvas"> This application is not support by your current browser</canvas>
     </body>
