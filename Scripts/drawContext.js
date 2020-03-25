@@ -1,4 +1,3 @@
-
 import * as toolManager from "./toolManager.js";
 
 //Fields
