@@ -2,7 +2,7 @@ import * as drawContext from "./drawContext.js";
 import * as toolManager from "./toolManager.js";
 import * as userInterface from "./userInterface.js";
 import {ToolType} from "./Tools/toolType.js";
-
+import * as IO from "./socket.js";
 //---------------------------------------------------------------
 const canvas = document.getElementById("MainCanvas");
 
@@ -20,7 +20,7 @@ pencilButton.onclick = function(){ changeTool(ToolType.pencil);}
 inkButton.onclick = function(){ changeTool(ToolType.ink);}
 eraserButton.onclick = function(){ changeTool(ToolType.eraser);}
 
-resetButton.onclick = function(){ drawContext.clearCanvas();}
+resetButton.onclick = function(){ drawContext.clearCanvas(); IO.canvasUpdated("data submited");}
 
 
 
@@ -41,11 +41,3 @@ function changeTool(type){
     drawContext.updateToolColor(colorPicker.value);
 }
 
-
-
-
-//Socker test
-var socket = io.connect();
-socket.on("connect", function(data) {
- 
-});

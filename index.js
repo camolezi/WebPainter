@@ -11,7 +11,18 @@ const server = httpModule.createServer(app);
 const io = wcModule(server);
 io.on("connection" ,(socket) => {
     console.log("One client connect to the socket");
+
+    //Server recive data
+    socket.on("updateData", (data) => {
+        //console.log(data);
+        //Brodcast data and  //Server send data
+        socket.broadcast.emit("updatedData",data);
+    });
+
+   
 });
+
+
 
 //express server
 //serve the static web painter
