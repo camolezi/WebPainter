@@ -7,7 +7,11 @@ import * as IO from "./socket.js";
 const canvas = document.getElementById("MainCanvas");
 
 toolManager.initializeMenager();
+
 drawContext.initializeContext(canvas);
+export function canvasChanged(callback){
+    drawContext.addCanvasChangedCallback(callback);
+}
 
 //buttons
 const pencilButton = document.getElementById("b_toolPencil");
@@ -20,9 +24,7 @@ pencilButton.onclick = function(){ changeTool(ToolType.pencil);}
 inkButton.onclick = function(){ changeTool(ToolType.ink);}
 eraserButton.onclick = function(){ changeTool(ToolType.eraser);}
 
-resetButton.onclick = function(){ drawContext.clearCanvas(); IO.canvasUpdated("data submited");}
-
-
+resetButton.onclick = function(){ drawContext.clearCanvas();}
 
 
 //Color picker

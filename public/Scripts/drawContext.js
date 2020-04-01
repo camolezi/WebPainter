@@ -5,6 +5,10 @@ let renderContext = null;
 let canvas = null;
 let currentTool = null;
 
+//Set canvas changed event callback
+let canvasChangedCallback;
+export function addCanvasChangedCallback(callback){canvasChangedCallback = callback;}
+
 //Methods
 export function initializeContext(drawCanva){
     canvas = drawCanva;
@@ -31,6 +35,7 @@ export function updateToolColor(newColor){
 
 export function clearCanvas(){
     renderContext.clearRect(0, 0, canvas.width, canvas.height);
+    canvasChanged();
 }
 
 function setCanvasCallBacks(){
@@ -45,6 +50,7 @@ function setCanvasCallBacks(){
 
     canvas.addEventListener("mouseup",function(e){
         currentTool.onMouseRelease(e);
+        canvasChanged();
     });
 
     canvas.addEventListener("mousemove", function(e){
@@ -71,11 +77,13 @@ function setCanvasCallBacks(){
             clientY: e.changedTouches[0].clientY - canvas.getBoundingClientRect().top
         }
         currentTool.onMouseClick(mouseEvent);
+        
     });
 
     canvas.addEventListener("touchend",function(e){
         e.preventDefault();
         currentTool.onMouseRelease(e);
+        canvasChanged();
     });
 
     canvas.addEventListener("touchmove", function(e){
@@ -86,8 +94,11 @@ function setCanvasCallBacks(){
         }
         currentTool.onMouseMove(mouseEvent);
     });
+}
 
-    
+
+function canvasChanged(){
+    canvasChangedCallback("Canvas changed, you can trust me!");
 }
 
 

@@ -1,3 +1,13 @@
+
+import * as app from "./mainScript.js";
+
+
+
+
+app.canvasChanged((data)=> {
+    socket.emit("updateData", data);
+});
+
 //Socker test
 var socket = io.connect();
 socket.on("connect", function(data) {
@@ -13,7 +23,3 @@ socket.on("updatedData", (data) => {
 
 });
 
-export function canvasUpdated(data){
-    //this will send when the canvas is updated
-    socket.emit("updateData", data);
-}
