@@ -1,18 +1,22 @@
 import * as drawContext from "./drawContext.js";
 import * as toolManager from "./toolManager.js";
+import * as Events from "./event.js";
+import * as canvasManager from "./localDraw.js";
 import * as userInterface from "./userInterface.js";
 import {ToolType} from "./Tools/toolType.js";
-import * as IO from "./socket.js";
 //---------------------------------------------------------------
 const canvas = document.getElementById("MainCanvas");
 
 toolManager.initializeMenager();
-
 drawContext.initializeContext(canvas);
+
 export function canvasChanged(callback){
-    drawContext.addCanvasChangedCallback(callback);
+    canvasManager.addCanvasChangedCallback(callback);
 }
 
+export function changeCanvas(data){
+    drawContext.addCanvasPixelData(data);
+}
 //buttons
 const pencilButton = document.getElementById("b_toolPencil");
 const inkButton = document.getElementById("b_toolInk");
@@ -24,7 +28,7 @@ pencilButton.onclick = function(){ changeTool(ToolType.pencil);}
 inkButton.onclick = function(){ changeTool(ToolType.ink);}
 eraserButton.onclick = function(){ changeTool(ToolType.eraser);}
 
-resetButton.onclick = function(){ drawContext.clearCanvas();}
+resetButton.onclick = function(){ drawContext.addCanvasPixelData(Events.createEvent("clearcanvas"));}
 
 
 //Color picker

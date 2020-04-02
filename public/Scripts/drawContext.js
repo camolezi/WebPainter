@@ -1,13 +1,12 @@
 import * as toolManager from "./toolManager.js";
+import * as Events from "./event.js";
+
 
 //Fields
 let renderContext = null;
 let canvas = null;
 let currentTool = null;
 
-//Set canvas changed event callback
-let canvasChangedCallback;
-export function addCanvasChangedCallback(callback){canvasChangedCallback = callback;}
 
 //Methods
 export function initializeContext(drawCanva){
@@ -17,7 +16,6 @@ export function initializeContext(drawCanva){
         renderContext = canvas.getContext("2d");
     
     if(renderContext !== null){
-        setCanvasCallBacks();
         updateTool();
     }else{
         //Learn how to handle errors
@@ -33,73 +31,42 @@ export function updateToolColor(newColor){
     currentTool.onColorChange(newColor);
 }
 
-export function clearCanvas(){
+
+
+//Draw to the screen with events
+export function addCanvasPixelData(event){
+    //Recive data and draw
+    switch(event.name){
+        case "mousedown":
+        case "touchstart":
+            currentTool.onMouseClick(event);
+            break;
+        case "mouseup":
+        case "touchend":
+            currentTool.onMouseRelease(event);
+            break;
+        case "mousemove":
+        case "touchmove":
+            currentTool.onMouseMove(event);
+            break;
+        case "clearcanvas":
+            clearCanvas(event);
+            break;
+
+        default:
+        break;
+    }
+ }
+
+
+
+//---- Aux functions
+
+
+function clearCanvas(event){
     renderContext.clearRect(0, 0, canvas.width, canvas.height);
-    canvasChanged();
 }
 
-function setCanvasCallBacks(){
-    //Events listenes
-    canvas.addEventListener("mousedown",function(e){
-        let mouseEvent = {
-            clientX: e.clientX -  canvas.getBoundingClientRect().left,
-            clientY: e.clientY - canvas.getBoundingClientRect().top
-        }
-        currentTool.onMouseClick(mouseEvent);
-    });
-
-    canvas.addEventListener("mouseup",function(e){
-        currentTool.onMouseRelease(e);
-        canvasChanged();
-    });
-
-    canvas.addEventListener("mousemove", function(e){
-        let mouseEvent = {
-            clientX: e.clientX -  canvas.getBoundingClientRect().left,
-            clientY: e.clientY - canvas.getBoundingClientRect().top
-        }
-        currentTool.onMouseMove(mouseEvent);
-    });
-
-    canvas.addEventListener("mouseleave",function(e){
-        currentTool.onMouseRelease(e);
-    });
-
-    //----------------------for touch screen ------------------------------------------
-
-    //Theres a bug here, fix latter
-    //The line is not ending. Its a continues line, even if you are not touching
-
-    canvas.addEventListener("touchstart",function(e){
-        e.preventDefault();
-        let mouseEvent = {
-            clientX: e.changedTouches[0].clientX -  canvas.getBoundingClientRect().left,
-            clientY: e.changedTouches[0].clientY - canvas.getBoundingClientRect().top
-        }
-        currentTool.onMouseClick(mouseEvent);
-        
-    });
-
-    canvas.addEventListener("touchend",function(e){
-        e.preventDefault();
-        currentTool.onMouseRelease(e);
-        canvasChanged();
-    });
-
-    canvas.addEventListener("touchmove", function(e){
-        e.preventDefault();
-        let mouseEvent = {
-            clientX: e.changedTouches[0].clientX -  canvas.getBoundingClientRect().left,
-            clientY: e.changedTouches[0].clientY - canvas.getBoundingClientRect().top
-        }
-        currentTool.onMouseMove(mouseEvent);
-    });
-}
-
-
-function canvasChanged(){
-    canvasChangedCallback("Canvas changed, you can trust me!");
-}
 
 
 
