@@ -13,27 +13,19 @@ setCanvasCallBacks();
 function setCanvasCallBacks(){
     //Events listenes
     canvas.addEventListener("mousedown",function(e){
-        let mouseEvent = Events.createEvent("mousedown",e);
-        drawContext.addCanvasPixelData(mouseEvent);
-        canvasChanged(mouseEvent);
+        propagateEvent ("mousedown",e);
     });
 
     canvas.addEventListener("mouseup",function(e){
-        let mouseEvent = Events.createEvent("mouseup",e);
-        drawContext.addCanvasPixelData(mouseEvent);
-        canvasChanged(mouseEvent);
+        propagateEvent ("mouseup",e);
     });
 
     canvas.addEventListener("mousemove", function(e){
-        let mouseEvent = Events.createEvent("mousemove",e);
-        drawContext.addCanvasPixelData(mouseEvent);
-        canvasChanged(mouseEvent);
+        propagateEvent ("mousemove",e);
     });
 
     canvas.addEventListener("mouseleave",function(e){
-        let mouseEvent = Events.createEvent("mouseleave",e);
-        drawContext.addCanvasPixelData(mouseEvent);
-        canvasChanged(mouseEvent);
+        propagateEvent ("mouseleave",e);
     });
 
     //----------------------for touch screen ------------------------------------------
@@ -43,29 +35,28 @@ function setCanvasCallBacks(){
 
     canvas.addEventListener("touchstart",function(e){
         e.preventDefault();
-        let mouseEvent = Events.createEvent("touchstart",e);
-        drawContext.addCanvasPixelData(mouseEvent);
-        canvasChanged(mouseEvent);
+        propagateEvent ("touchstart",e);
     });
 
     canvas.addEventListener("touchend",function(e){
         e.preventDefault();
-        let mouseEvent = Events.createEvent("touchend",e);
-        drawContext.addCanvasPixelData(mouseEvent);
-        canvasChanged(mouseEvent);
+        propagateEvent ("touchend",e);
         //canvasChanged();
     });
 
     canvas.addEventListener("touchmove", function(e){
         e.preventDefault();
-        let mouseEvent = Events.createEvent("touchmove",e);
-        drawContext.addCanvasPixelData(mouseEvent);
-        canvasChanged(mouseEvent);
+        propagateEvent ("touchmove",e);
     });
 }
 
  
-
+function propagateEvent(name, eventData){
+    let  event=  Events.createEvent(name,eventData);
+    drawContext.addCanvasPixelData(event);
+    canvasChanged(event);
+}
+''
 
 function canvasChanged(event){
     canvasChangedCallback.forEach( (funcCallback) => {
