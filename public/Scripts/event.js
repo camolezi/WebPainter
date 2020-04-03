@@ -16,6 +16,10 @@ export function createEvent(type, data){
         eventObject.clientY = data.changedTouches[0].clientY - canvas.getBoundingClientRect().top;
     }
 
+    if(type == "changetool"){
+        eventObject.newTool = data;
+    }
+
     return eventObject;
 }
 

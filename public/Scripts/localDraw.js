@@ -1,14 +1,44 @@
-const canvas = document.getElementById("MainCanvas");
+
 import * as Events from "./event.js";
 import * as drawContext from "./drawContext.js";
+import * as toolManager from "./toolManager.js";
 
 
+let canvas = null;
+let currentLocalTool = null;
+let currentLocalColor = "black";
+let canvasChangedCallback = [];
 
 //Set canvas changed event callback
-let canvasChangedCallback = [];
-export function addCanvasChangedCallback(callback){ canvasChangedCallback.push(callback);}
+export function addCanvasChangedCallback(callback){ 
+    canvasChangedCallback.push(callback);
+}
 
-setCanvasCallBacks();
+
+export function initializeLocalDraw(LocalCanvas){
+    canvas = LocalCanvas;
+    setCanvasCallBacks();
+}
+
+export function drawInLocalCanvas(data){
+    drawContext.addCanvasPixelData(data);
+}
+
+export function updateCurrentLocalTool(newTool){
+    currentLocalTool = newTool;
+}
+
+export function updateCurrentLocalColor(newColor){
+    currentLocalColor = newColor;
+    drawContext.updateToolColor(currentLocalColor);
+}
+
+export function clearLocalCanvas(){
+    propagateEvent("clearcanvas");
+}
+
+
+// _____ AUX funticon _----____________
 
 function setCanvasCallBacks(){
     //Events listenes
@@ -52,11 +82,15 @@ function setCanvasCallBacks(){
 
  
 function propagateEvent(name, eventData){
-    let  event=  Events.createEvent(name,eventData);
+    toolManager.changeTool(currentLocalTool);
+    drawContext.updateTool();
+
+    let  event =  Events.createEvent(name,eventData);
+
     drawContext.addCanvasPixelData(event);
     canvasChanged(event);
 }
-''
+
 
 function canvasChanged(event){
     canvasChangedCallback.forEach( (funcCallback) => {
