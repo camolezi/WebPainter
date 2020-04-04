@@ -1,3 +1,5 @@
+import * as toolManager from "./toolManager.js";
+
 const canvas = document.getElementById("MainCanvas");
 
 export function createEvent(type, data){
@@ -16,9 +18,8 @@ export function createEvent(type, data){
         eventObject.clientY = data.changedTouches[0].clientY - canvas.getBoundingClientRect().top;
     }
 
-    if(type == "changetool"){
-        eventObject.newTool = data;
-    }
+    eventObject.drawColor = data.drawColor;
+    eventObject.drawTool = data.drawTool;
 
     return eventObject;
 }

@@ -7,7 +7,6 @@ let renderContext = null;
 let canvas = null;
 let currentTool = null;
 
-
 //Methods
 export function initializeContext(drawCanva){
     canvas = drawCanva;
@@ -22,7 +21,11 @@ export function initializeContext(drawCanva){
     }
 }
 
-export function updateTool(){
+export function updateTool(newTool){
+
+    if(newTool !== undefined){
+        toolManager.changeTool(newTool);
+    }
     currentTool = toolManager.getCurrentTool();
     currentTool.initializeTool(renderContext);
 }
@@ -36,6 +39,13 @@ export function updateToolColor(newColor){
 //Draw to the screen with events
 export function addCanvasPixelData(event){
     //Recive data and draw
+
+    console.log(event.drawTool);
+    
+        updateTool(event.drawTool);
+        updateToolColor(event.drawColor);
+    
+
     switch(event.name){
         case "mousedown":
         case "touchstart":

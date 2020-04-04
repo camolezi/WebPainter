@@ -27,6 +27,7 @@ const eraserButton = document.getElementById("b_toolEraser");
 const resetButton = document.getElementById("b_reset");
 
 
+
 pencilButton.onclick = function(){ changeTool(ToolType.pencil);}
 inkButton.onclick = function(){ changeTool(ToolType.ink);}
 eraserButton.onclick = function(){ changeTool(ToolType.eraser);}
@@ -41,6 +42,9 @@ colorPicker.addEventListener("change",function(event){
     localCanvasDraw.updateCurrentLocalColor(event.target.value); 
 });
 
+
+//default tool
+changeTool(ToolType.pencil);
 
 //aux functions
 function changeTool(type){

@@ -84,6 +84,11 @@ function setCanvasCallBacks(){
 function propagateEvent(name, eventData){
     toolManager.changeTool(currentLocalTool);
     drawContext.updateTool();
+    drawContext.updateToolColor(currentLocalColor);
+
+    //Include current local colors in event
+    eventData.drawColor = currentLocalColor;
+    eventData.drawTool = currentLocalTool;
 
     let  event =  Events.createEvent(name,eventData);
 
