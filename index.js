@@ -32,5 +32,5 @@ app.get("/", (req, res) => {
   
 });
 
-let serverPort = 8000;
+let serverPort =  process.env.PORT || 5000;
 server.listen(serverPort, () => { console.log("Started Server at port: " + serverPort); })

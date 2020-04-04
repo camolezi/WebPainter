@@ -39,11 +39,8 @@ export function updateToolColor(newColor){
 //Draw to the screen with events
 export function addCanvasPixelData(event){
     //Recive data and draw
-
-    console.log(event.drawTool);
-    
-        updateTool(event.drawTool);
-        updateToolColor(event.drawColor);
+    updateTool(event.drawTool);
+    updateToolColor(event.drawColor);
     
 
     switch(event.name){
