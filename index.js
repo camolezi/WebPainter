@@ -1,36 +1,53 @@
 
 const httpModule = require("http");
 const express = require("express");
-const wcModule = require("socket.io");
+const wsModule = require("socket.io");
 
 const app = express();
 const server = httpModule.createServer(app);
 
-
 //socket io
-const io = wcModule(server);
-io.on("connection" ,(socket) => {
-    console.log("One client connect to the socket");
+const io = wsModule(server);
 
-    //Server recive data
-    socket.on("updateData", (data) => {
-        //console.log(data);
-        //Brodcast data and  //Server send data
-        socket.broadcast.emit("updatedData",data);
-    });
-
-   
-});
-
-
+//console.log(io.origins.value);
 
 //express server
 //serve the static web painter
 app.use(express.static(__dirname + "/public"));
 
-app.get("/", (req, res) => {
-  
+
+io.on("connect" ,(socket) => {
+    console.log("Normal connection");
+    socket.on("askNewRoom", ()=>{
+        console.log("creating new ROMM");
+        createNewRoom(socket);
+    });
 });
 
-let serverPort =  process.env.PORT || 5000;
+
+function createNewRoom(socket){
+    //Random hash namespace
+    const namespaceName = "room" + Math.floor( (Math.random() * 10000000000) + 1) ;
+    console.log(namespaceName);
+        //namespace test
+    const newNamespace = io.of("/"+namespaceName);
+    newNamespace.on("connect" ,(socketRoom) => {
+        console.log("Namespace connection");
+        //Server recive data
+        socketRoom.on("updateData", (data) => {
+            socketRoom.broadcast.emit("updatedData",data);
+        });
+    });
+
+    //Send static files to the namespace url
+    app.get("/" +namespaceName, (req, res) => {
+        res.sendFile(__dirname + "/public/index.html");
+    });
+
+    socket.emit("createNewRoom",namespaceName);
+ //socket.removeAllListeners("connect");
+
+}
+
+let serverPort =  process.env.PORT || 8000;
 server.listen(serverPort, () => { console.log("Started Server at port: " + serverPort); })

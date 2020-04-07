@@ -1,27 +1,43 @@
 
-export function emitData(data){
-    socket.emit("updateData", data);
+//Socker test
+var socket;
+
+export function startConnection(){
+   
+    console.log("conection path: " + window.location.href );
+
+    socket = io.connect(window.location.href);
+
+    socket.on("createNewRoom", function(data) {
+        console.log("entered the connect event");
+        if(data !== null && data !== undefined && data !== window.location.href){
+            console.log("change URL : " + data);
+            window.location.href = window.location.href + data;
+        }
+        
+    });
+
+    socket.on("updatedData", (data) => {
+        dataCallbacks.forEach((callback) => {
+            callback(data)
+        });
+    });
 }
 
-//Socker test
-var socket = io.connect();
-socket.on("connect", function(data) {
-    //console.log("nice");
-    //socket.emit("myTestEvent", "a string thats passed by a server, nice!");
-});
 
 let dataCallbacks = [];
 export function addGetDataCallback(callback){
     dataCallbacks.push(callback);
 }
 
-socket.on("updatedData", (data) => {
-    //Save data to update canvas
-    //for now just a log
-   // console.log("Data Recived:");
-    dataCallbacks.forEach((callback) => {
-        callback(data)
-    });
-    
-});
+
+export function emitData(data){
+    socket.emit("updateData", data);
+}
+
+export function createNewRoom(){
+    socket.emit("askNewRoom");
+}
+
+
 

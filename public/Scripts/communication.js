@@ -2,10 +2,30 @@
 import * as app from "./mainScript.js";
 import * as connection from "./socket.js";
 
-app.canvasChanged( (data)=> {
-    connection.emitData(data);
-});
+const connectionButton = document.getElementById("b_room");
+connectionButton.onclick = () => { startCommunication(); createNewRoom();};
 
-connection.addGetDataCallback( (data) => {
-    app.changeCanvas(data);
-});
+//is on a room
+if(location.pathname !== "/"){
+    startCommunication(); 
+} 
+
+function startCommunication(){
+    
+    connection.startConnection();
+
+    app.canvasChanged( (data)=> {
+        connection.emitData(data);
+    });
+
+    connection.addGetDataCallback( (data) => {
+        app.changeCanvas(data);
+    });
+}
+
+
+function createNewRoom(){
+    connection.createNewRoom();
+}
+
+
