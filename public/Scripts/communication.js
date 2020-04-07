@@ -2,6 +2,8 @@
 import * as app from "./mainScript.js";
 import * as connection from "./socket.js";
 
+let connected = false;
+
 const connectionButton = document.getElementById("b_room");
 connectionButton.onclick = () => { startCommunication(); createNewRoom();};
 
@@ -11,7 +13,11 @@ if(location.pathname !== "/"){
 } 
 
 function startCommunication(){
+
+    if(connected)
+        return;
     
+
     connection.startConnection();
 
     app.canvasChanged( (data)=> {
@@ -21,6 +27,8 @@ function startCommunication(){
     connection.addGetDataCallback( (data) => {
         app.changeCanvas(data);
     });
+
+    connected = true;
 }
 
 
