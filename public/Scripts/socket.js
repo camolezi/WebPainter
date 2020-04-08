@@ -4,7 +4,7 @@ var socket;
 
 export function startConnection(){
    
-    console.log("conection path: " + window.location.href );
+    //console.log(window.location.hostname );
 
     socket = io.connect(window.location.href);
 
@@ -12,7 +12,7 @@ export function startConnection(){
         console.log("entered the connect event");
         if(data !== null && data !== undefined && data !== window.location.href){
             console.log("change URL : " + data);
-            window.location.href = window.location.href + data;
+            window.location.href =  window.location.href.match(/^.*\//)  + data;
         }
         
     });

@@ -17,9 +17,7 @@ app.use(express.static(__dirname + "/public"));
 
 
 io.on("connect" ,(socket) => {
-    console.log("Normal connection");
     socket.on("askNewRoom", ()=>{
-        console.log("creating new ROMM");
         createNewRoom(socket);
     });
 });
@@ -36,6 +34,10 @@ function createNewRoom(socket){
         //Server recive data
         socketRoom.on("updateData", (data) => {
             socketRoom.broadcast.emit("updatedData",data);
+        });
+
+        socketRoom.on("askNewRoom", ()=>{
+            createNewRoom(socketRoom);
         });
     });
 

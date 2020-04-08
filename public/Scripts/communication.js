@@ -7,13 +7,14 @@ let connected = false;
 const connectionButton = document.getElementById("b_room");
 connectionButton.onclick = () => { startCommunication(); createNewRoom();};
 
-//is on a room
+//is on a room so start communication
 if(location.pathname !== "/"){
     startCommunication(); 
 } 
 
 function startCommunication(){
 
+    //if already connected return
     if(connected)
         return;
     
