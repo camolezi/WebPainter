@@ -1,0 +1,38 @@
+.labels{
+    color: #fbf9ff;
+    display: inline-block;
+}
+.noToolButtons{
+    display: inline-block;
+}
+body{
+    background-color:#04080f
+}
+canvas{
+    display: block;
+    background-color:#04080f
+}
+h1{
+    color: #fbf9ff;
+    text-align: center;
+}
+
+.toolButton{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    height: 50px;
+    width: 50px;
+    cursor:pointer;
+  
+}
+
+#b_toolPencil{
+    background-image: url("../Images/pencil.png");
+}
+#b_toolInk{
+    background-image: url("../Images/ink.png");
+}
+#b_toolEraser{
+    background-image: url("../Images/eraser.png");
+}
