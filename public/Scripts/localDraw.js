@@ -1,6 +1,6 @@
 
 import * as Events from "./event.js";
-import * as drawContext from "./drawContext.js";
+import drawContextClass from "./drawContext.js";
 import * as toolManager from "./toolManager.js";
 
 
@@ -8,6 +8,7 @@ let canvas = null;
 let currentLocalTool = null;
 let currentLocalColor = "black";
 let canvasChangedCallback = [];
+let drawContextInstance = null;
 
 //Set canvas changed event callback
 export function addCanvasChangedCallback(callback){ 
@@ -17,11 +18,12 @@ export function addCanvasChangedCallback(callback){
 
 export function initializeLocalDraw(LocalCanvas){
     canvas = LocalCanvas;
+    drawContextInstance = new drawContextClass(canvas);
     setCanvasCallBacks();
 }
 
 export function drawInLocalCanvas(data){
-    drawContext.addCanvasPixelData(data);
+    drawContextInstance.addCanvasPixelData(data);
 }
 
 export function updateCurrentLocalTool(newTool){
@@ -30,7 +32,7 @@ export function updateCurrentLocalTool(newTool){
 
 export function updateCurrentLocalColor(newColor){
     currentLocalColor = newColor;
-    drawContext.updateToolColor(currentLocalColor);
+    drawContextInstance.updateToolColor(currentLocalColor);
 }
 
 export function clearLocalCanvas(){
@@ -86,9 +88,8 @@ function propagateEvent(name, eventData){
     if(eventData === undefined)
         eventData = {};
 
-    toolManager.changeTool(currentLocalTool);
-    drawContext.updateTool();
-    drawContext.updateToolColor(currentLocalColor);
+    drawContextInstance.updateTool(currentLocalTool);
+    drawContextInstance.updateToolColor(currentLocalColor);
 
     //Include current local colors in event
     eventData.drawColor = currentLocalColor;
@@ -96,7 +97,7 @@ function propagateEvent(name, eventData){
 
     let  event =  Events.createEvent(name,eventData);
 
-    drawContext.addCanvasPixelData(event);
+    drawContextInstance.addCanvasPixelData(event);
     canvasChanged(event);
 }
 

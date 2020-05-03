@@ -7,32 +7,27 @@ import {ToolType} from "./Tools/toolType.js";
 
 
 let toolMap = {};
-let currentTool;
+
 
 export function initializeMenager(){
     toolMap[ToolType.pencil] = pencilTool;
     toolMap[ToolType.ink] = inkTool;
     toolMap[ToolType.eraser] = eraserTool;
-    //Default tool
-    currentTool = pencilTool;
+    //Default tool    
 }
 
 export function changeTool(type){
     if(toolMap[type]){
-        currentTool = toolMap[type];
+        return toolMap[type];
     }else{
         //Tool does not exist or not seted
         //Error
         //Set default for now
-        currentTool = pencilTool;
         console.log("Tool not found");
+        return pencilTool;
     }
 }
 
-export function getCurrentTool(){
-    //For now only pencil
-    return currentTool;
-}
 
     
 

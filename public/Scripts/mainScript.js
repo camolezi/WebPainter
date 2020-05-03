@@ -9,7 +9,6 @@ import {ToolType} from "./Tools/toolType.js";
 const canvas = document.getElementById("MainCanvas");
 
 toolManager.initializeMenager();
-drawContext.initializeContext(canvas);
 
 localCanvasDraw.initializeLocalDraw(canvas);
 

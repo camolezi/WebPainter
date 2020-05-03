@@ -1,79 +1,83 @@
 import * as toolManager from "./toolManager.js";
 import * as Events from "./event.js";
+import { ToolType } from "./Tools/toolType.js";
 
 
-//Fields
-let renderContext = null;
-let canvas = null;
-let currentTool = null;
+//Class that represent one draw context
+export default class DrawContext{
 
-//Methods
-export function initializeContext(drawCanva){
-    canvas = drawCanva;
 
-    if(canvas !== null)
-        renderContext = canvas.getContext("2d");
+    constructor(drawCanva){
+        this.canvas = drawCanva;
+        this.currentTool = null;
+
+        if(this.canvas !== null)
+            this.renderContext = this.canvas.getContext("2d");
+        
+        if(this.renderContext !== null){
+            this.updateTool();
+        }else{
+            //Handle errors
+        }   
+    }
+
+    updateTool(newTool){
+
+        if(newTool !== undefined){
+            this.currentTool = toolManager.changeTool(newTool);
+            this.currentTool.initializeTool(this.renderContext);
+
+        }
+    }
     
-    if(renderContext !== null){
-        updateTool();
-    }else{
-        //Learn how to handle errors
+    updateToolColor(newColor){
+
+        if(this.currentTool)
+            this.currentTool.onColorChange(newColor);
     }
-}
-
-export function updateTool(newTool){
-
-    if(newTool !== undefined){
-        toolManager.changeTool(newTool);
+    
+    
+    
+    //Draw to the screen with events
+    addCanvasPixelData(event){
+        //Recive data and draw
+        this.updateTool(event.drawTool);
+        this.updateToolColor(event.drawColor);
+        
+    
+        switch(event.name){
+            case "mousedown":
+            case "touchstart":
+                this.currentTool.onMouseClick(event);
+                break;
+            case "mouseup":
+            case "touchend":
+                this.currentTool.onMouseRelease(event);
+                break;
+            case "mousemove":
+            case "touchmove":
+                this.currentTool.onMouseMove(event);
+                break;
+            case "clearcanvas":
+                this.clearCanvas(event);
+                break;
+    
+            default:
+            break;
+        }
+     }
+    
+    
+    
+    //---- Aux functions
+    
+    clearCanvas(event){
+        this.renderContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
-    currentTool = toolManager.getCurrentTool();
-    currentTool.initializeTool(renderContext);
-}
-
-export function updateToolColor(newColor){
-    currentTool.onColorChange(newColor);
-}
-
-
-
-//Draw to the screen with events
-export function addCanvasPixelData(event){
-    //Recive data and draw
-    updateTool(event.drawTool);
-    updateToolColor(event.drawColor);
+    
+    
     
 
-    switch(event.name){
-        case "mousedown":
-        case "touchstart":
-            currentTool.onMouseClick(event);
-            break;
-        case "mouseup":
-        case "touchend":
-            currentTool.onMouseRelease(event);
-            break;
-        case "mousemove":
-        case "touchmove":
-            currentTool.onMouseMove(event);
-            break;
-        case "clearcanvas":
-            clearCanvas(event);
-            break;
-
-        default:
-        break;
-    }
- }
-
-
-
-//---- Aux functions
-
-
-function clearCanvas(event){
-    renderContext.clearRect(0, 0, canvas.width, canvas.height);
 }
-
-
 
 

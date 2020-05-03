@@ -26,11 +26,9 @@ io.on("connect" ,(socket) => {
 function createNewRoom(socket){
     //Random hash namespace
     const namespaceName = "room" + Math.floor( (Math.random() * 10000000000) + 1) ;
-    console.log(namespaceName);
         //namespace test
     const newNamespace = io.of("/"+namespaceName);
     newNamespace.on("connect" ,(socketRoom) => {
-        console.log("Namespace connection");
         //Server recive data
         socketRoom.on("updateData", (data) => {
             socketRoom.broadcast.emit("updatedData",data);
