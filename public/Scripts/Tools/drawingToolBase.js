@@ -36,14 +36,15 @@ export function onMouseMove(event){
         return;
     }
 
-    drawCtx.beginPath();
-    drawCtx.moveTo(event.clientX,event.clientY);
-    drawCtx.lineTo(mousePos.x,mousePos.y);
+    let pathToDraw = new Path2D();
+
+    pathToDraw.moveTo(event.clientX,event.clientY);
+    pathToDraw.lineTo(mousePos.x,mousePos.y);
 
     mousePos.changePos(event.clientX,event.clientY);
 
     if(drawing){
-        drawCtx.stroke();
+        drawCtx.stroke(pathToDraw);
     }
 }
 
@@ -51,9 +52,10 @@ export function onMouseMove(event){
 export function onMouseClick(event){
     drawing = true;
 
-    drawCtx.beginPath();
-    drawCtx.arc(event.clientX,event.clientY, drawCtx.lineWidth/2, 0, 2*Math.PI, true);
-    drawCtx.fill();
+    let pathToDraw = new Path2D();
+
+    pathToDraw.arc(event.clientX,event.clientY, drawCtx.lineWidth/2, 0, 2*Math.PI, true);
+    drawCtx.fill(pathToDraw);
 
     mousePos.changePos(event.clientX,event.clientY);
 }

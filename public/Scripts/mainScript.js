@@ -16,11 +16,6 @@ export function canvasChanged(callback){
     localCanvasDraw.addCanvasChangedCallback(callback);
 }
 
-export function changeCanvas(data){
-    localCanvasDraw.drawInLocalCanvas(data);
-}
-
-
 export function getLocalCanvas(){
     return canvas;    
 }
