@@ -19,6 +19,15 @@ export function canvasChanged(callback){
 export function changeCanvas(data){
     localCanvasDraw.drawInLocalCanvas(data);
 }
+
+
+export function getLocalCanvas(){
+    return canvas;    
+}
+
+
+
+
 //buttons
 const pencilButton = document.getElementById("b_toolPencil");
 const inkButton = document.getElementById("b_toolInk");

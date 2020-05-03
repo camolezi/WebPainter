@@ -1,5 +1,5 @@
 
-//Socker test
+
 var socket;
 
 export function startConnection(){
@@ -33,10 +33,15 @@ export function addGetDataCallback(callback){
 
 export function emitData(data){
     socket.emit("updateData", data);
+    data.sentById = getSocketId();
 }
 
 export function createNewRoom(){
     socket.emit("askNewRoom");
+}
+
+export function getSocketId(){
+    return socket.id;
 }
 
 

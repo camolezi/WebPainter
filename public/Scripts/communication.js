@@ -1,6 +1,8 @@
 
 import * as app from "./mainScript.js";
 import * as connection from "./socket.js";
+import * as remoteDraw from "./remoteDraw.js";
+
 
 let connected = false;
 
@@ -21,12 +23,14 @@ function startCommunication(){
 
     connection.startConnection();
 
+    remoteDraw.startRemoteDraw(app.getLocalCanvas());
+
     app.canvasChanged( (data)=> {
         connection.emitData(data);
     });
 
     connection.addGetDataCallback( (data) => {
-        app.changeCanvas(data);
+        remoteDraw.newDrawData(data);
     });
 
     connected = true;
