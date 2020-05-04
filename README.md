@@ -1,7 +1,7 @@
 # WebPainter
 A MS Paint like web application.
 
-The application can be used here:
+The application can be used here, in the first access, the site can take a few seconds to load:
 https://interactivewebpainter.herokuapp.com/
 
 # How to draw with friends:
@@ -9,5 +9,7 @@ Click the "create room" button. You will be redirected to a new room. Copy the l
 
 
 
-The static (not real time Interactivity) can be used here:
+
+# Static Version (Can't use with friends)
+The static (without real time Interactivity) can be used here:
 https://camolezi.github.io/WebPainter
