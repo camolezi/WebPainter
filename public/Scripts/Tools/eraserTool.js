@@ -1,31 +1,27 @@
-import * as drawTool from "./drawingToolBase.js";
+import drawingToolBase from "./drawingToolBase.js";
 
-export function initializeTool(drawCtx){
-    //style
-    drawCtx.lineWidth = 15;
-    drawCtx.lineCap = "round";
-    drawCtx.lineJoin = "round";
-    drawCtx.strokeStyle = drawCtx.canvas.style.backgroundColor;
-    drawCtx.fillStyle = drawCtx.canvas.style.backgroundColor;
+export default class eraserTool extends drawingToolBase{
 
-    //Initiae base tool
-    drawTool.initializeTool(drawCtx);
-}
+    constructor(drawCtx){
 
-export function onColorChange(newColor){
-    
-}
+        super(drawCtx)
+        this.initializeTool();
 
-export function onMouseMove(event){
-    drawTool.onMouseMove(event);
-}
+    }
 
-export function onMouseClick(event){
-    drawTool.onMouseClick(event);
-}
+    initializeTool(){
+    //set draw style
+        this.drawCtx.lineWidth = 15;
+        this.drawCtx.lineCap = "round";
+        this.drawCtx.lineJoin = "round";
+        this.drawCtx.strokeStyle = this.drawCtx.canvas.style.backgroundColor;
+        this.drawCtx.fillStyle = this.drawCtx.canvas.style.backgroundColor;
+    }
 
-export function onMouseRelease(){
-    drawTool.onMouseRelease();
+    onColorChange(newColor){
+        //do nothing in color change
+    }
+
 }
 
 

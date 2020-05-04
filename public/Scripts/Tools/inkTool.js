@@ -1,32 +1,22 @@
-import * as drawTool from "./drawingToolBase.js";
+import drawingToolBase from "./drawingToolBase.js";
+
 
 //Constructor 
-export function initializeTool(drawCtx){
-    //style
-    drawCtx.lineWidth = 7;
-    drawCtx.lineCap = "round";
-    drawCtx.lineJoin = "round";
+export default class inkTool extends drawingToolBase{
 
-    //Initiae base tool
-    drawTool.initializeTool(drawCtx);
-   
+    constructor(drawCtx){
+
+        super(drawCtx)
+        this.initializeTool();
+
+    }
+
+    initializeTool(){
+        this.drawCtx.lineWidth = 7;
+        this.drawCtx.lineCap = "round";
+        this.drawCtx.lineJoin = "round";
+    }
+
 }
-
-export function onColorChange(newColor){
-    drawTool.onColorChange(newColor);
-}
-
-export function onMouseMove(event){
-    drawTool.onMouseMove(event);
-}
-
-export function onMouseClick(event){
-    drawTool.onMouseClick(event);
-}
-
-export function onMouseRelease(){
-    drawTool.onMouseRelease();
-}
-
 
 

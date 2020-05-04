@@ -1,70 +1,75 @@
 
-////--------------The base code for all basic drawing tools---------------------------------
-let drawCtx = null;
-let drawing = false;
 
-let mousePos = {
-    x : null,
-    y : null,
-    changePos : function(newX,newY){
-        this.x = newX;
-        this.y = newY;
-    },
-    reset : function(){
-        this.x = null;
-        this.y = null;
-    }
-};
 
-//Constructor 
-export function initializeTool(ctx){
-    drawCtx = ctx;
-    mousePos.reset();
-    drawing = false;
+export default class drawingToolBase{
+
+    constructor(ctx){
+
+        this.drawCtx = null;
+        this.drawing = false;
     
-}
+        this.mousePos = {
+            x : null,
+            y : null,
+            changePos : function(newX,newY){
+                this.x = newX;
+                this.y = newY;
+            },
+            reset : function(){
+                this.x = null;
+                this.y = null;
+            }
+        };
 
-export function onColorChange(newColor){
-    drawCtx.strokeStyle = newColor;
-    drawCtx.fillStyle = newColor;
-}
+        this.drawCtx = ctx;
+    }
+  
 
-//Call Back public API (all tools will have the same API)
-export function onMouseMove(event){
-
-    if(mousePos.x === null || mousePos.y === null){
-        mousePos.changePos(event.clientX,event.clientY);
-        return;
+    onColorChange(newColor){
+        this.drawCtx.strokeStyle = newColor;
+        this.drawCtx.fillStyle = newColor;
     }
 
-    let pathToDraw = new Path2D();
+    //Call Back public API (all tools will have the same API)
+    onMouseMove(event){
 
-    pathToDraw.moveTo(event.clientX,event.clientY);
-    pathToDraw.lineTo(mousePos.x,mousePos.y);
+        if(this.mousePos.x === null || this.mousePos.y === null){
+            this.mousePos.changePos(event.clientX,event.clientY);
+            return;
+        }
 
-    mousePos.changePos(event.clientX,event.clientY);
+        let pathToDraw = new Path2D();
 
-    if(drawing){
-        drawCtx.stroke(pathToDraw);
+        pathToDraw.moveTo(event.clientX,event.clientY);
+        pathToDraw.lineTo(this.mousePos.x,this.mousePos.y);
+
+        this.mousePos.changePos(event.clientX,event.clientY);
+
+        if(this.drawing){
+            this.drawCtx.stroke(pathToDraw);
+        }
     }
+
+
+    onMouseClick(event){
+        this.drawing = true;
+
+        let pathToDraw = new Path2D();
+
+        pathToDraw.arc(event.clientX,event.clientY, this.drawCtx.lineWidth/2, 0, 2*Math.PI, true);
+        this.drawCtx.fill(pathToDraw);
+
+        this.mousePos.changePos(event.clientX,event.clientY);
+    }
+
+    onMouseRelease(){
+        this.drawing = false;
+        this.mousePos.reset();
+    }
+
+
 }
 
 
-export function onMouseClick(event){
-    drawing = true;
 
-    let pathToDraw = new Path2D();
-
-    pathToDraw.arc(event.clientX,event.clientY, drawCtx.lineWidth/2, 0, 2*Math.PI, true);
-    drawCtx.fill(pathToDraw);
-
-    mousePos.changePos(event.clientX,event.clientY);
-}
-
-export function onMouseRelease(){
-    drawing = false;
-    mousePos.reset();
-}
-
-
-
+////--------------The base code for all basic drawing tools---------------------------------

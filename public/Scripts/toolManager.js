@@ -1,34 +1,35 @@
 //Import tools
-import * as pencilTool from "./Tools/pencilTool.js";
-import * as inkTool from "./Tools/inkTool.js";
-import * as eraserTool from "./Tools/eraserTool.js";
+import pencilTool from "./Tools/pencilTool.js";
+import inkTool from "./Tools/inkTool.js";
+import eraserTool from "./Tools/eraserTool.js";
 
 import {ToolType} from "./Tools/toolType.js";
 
 
-let toolMap = {};
 
+export default class toolManager{
+    
+    constructor(ctx){
+        this.toolMap = {};
 
-export function initializeMenager(){
-    toolMap[ToolType.pencil] = pencilTool;
-    toolMap[ToolType.ink] = inkTool;
-    toolMap[ToolType.eraser] = eraserTool;
-    //Default tool    
-}
-
-export function changeTool(type){
-    if(toolMap[type]){
-        return toolMap[type];
-    }else{
-        //Tool does not exist or not seted
-        //Error
-        //Set default for now
-        console.log("Tool not found");
-        return pencilTool;
+        this.toolMap[ToolType.pencil] = new pencilTool(ctx);
+        this.toolMap[ToolType.ink] = new inkTool(ctx);
+        this.toolMap[ToolType.eraser] = new eraserTool(ctx);
     }
-}
 
-
+  
+    changeTool(type){
+        if(this.toolMap[type]){
+            return this.toolMap[type];
+        }else{
+            //Tool does not exist or not seted
+            //Error
+            //Set default for now
+            console.log("Tool not found");
+            return this.toolMap[ToolType.pencil];
+        }
+    }
     
 
+}
 

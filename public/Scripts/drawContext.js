@@ -1,4 +1,4 @@
-import * as toolManager from "./toolManager.js";
+import toolManager from "./toolManager.js";
 import * as Events from "./event.js";
 import { ToolType } from "./Tools/toolType.js";
 
@@ -18,14 +18,17 @@ export default class DrawContext{
             this.updateTool();
         }else{
             //Handle errors
-        }   
+        } 
+        
+        
+        this.toolManager = new toolManager(this.renderContext);
     }
 
     updateTool(newTool){
 
         if(newTool !== undefined){
-            this.currentTool = toolManager.changeTool(newTool);
-            this.currentTool.initializeTool(this.renderContext);
+            this.currentTool = this.toolManager.changeTool(newTool);
+            this.currentTool.initializeTool();
 
         }
     }

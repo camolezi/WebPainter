@@ -1,7 +1,7 @@
 
 import * as Events from "./event.js";
 import drawContextClass from "./drawContext.js";
-import * as toolManager from "./toolManager.js";
+import toolManager from "./toolManager.js";
 
 
 let canvas = null;
