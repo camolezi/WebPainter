@@ -19,7 +19,8 @@ let mousePos = {
 //Constructor 
 export function initializeTool(ctx){
     drawCtx = ctx;
-
+    mousePos.reset();
+    drawing = false;
     
 }
 
