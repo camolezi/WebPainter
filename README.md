@@ -10,6 +10,6 @@ Click the "create room" button. You will be redirected to a new room. Copy the l
 
 
 
-# Static Version (Can't use with friends)
+# Static Version (Can't be used with friends)
 The static (without real time Interactivity) can be used here:
 https://camolezi.github.io/WebPainter
