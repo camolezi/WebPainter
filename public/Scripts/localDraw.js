@@ -57,7 +57,7 @@ function setCanvasCallBacks(){
     });
 
     canvas.addEventListener("mouseleave",function(e){
-        propagateEvent ("mouseleave",e);
+        propagateEvent ("mouseup",e);
     });
 
     //----------------------for touch screen ------------------------------------------
